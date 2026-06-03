@@ -20,3 +20,12 @@ A portfolio of Cisco Packet Tracer labs showcasing practical CCNA networking ski
 - Verification procedures
 - Troubleshooting notes
 - Security considerations
+
+## Security Controls Implemented
+- VLAN segmentation
+- SSH Version 2 for management
+- Local authenticated administration
+- Password encryption
+- Trunk VLAN restrictions
+- Shutdown of unused switch ports
+- Management VLAN separation
