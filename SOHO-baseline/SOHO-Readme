@@ -1,0 +1,59 @@
+# Lab 01 - Small Business Network Baseline
+
+## Scenario
+
+A small business requires a network that provides connectivity between Sales, HR, and IT departments while maintaining logical separation through VLANs. The organization also requires centralized DHCP services and secure remote management of network infrastructure.
+
+## Objectives
+
+* Create departmental VLANs
+* Configure inter-VLAN routing
+* Deploy DHCP services
+* Configure SSH management access
+* Disable insecure management protocols
+* Harden switch ports
+
+
+## Addressing Scheme
+
+| VLAN | Department | Network         |
+| ---- | ---------- | --------------- |
+| 10   | Sales      | 192.168.10.0/24 |
+| 20   | HR         | 192.168.20.0/24 |
+| 30   | IT         | 192.168.30.0/24 |
+
+## Technologies Used
+
+* VLANs
+* 802.1Q Trunking
+* Router-on-a-Stick
+* DHCP
+* SSH
+* Switch Port Hardening
+
+## Verification
+
+Successful verification included:
+
+* DHCP address assignment
+* Inter-VLAN connectivity
+* Trunk operation
+* SSH service validation
+* Routing table verification
+
+## Security Controls Implemented
+
+* SSH Version 2
+* Local user authentication
+* Password encryption
+* Disabled Telnet access
+* Restricted trunk VLANs
+* Shutdown of unused switch ports
+
+## Troubleshooting Notes
+
+During SSH validation, the command `show ssh` appeared to indicate that SSH was not functioning. Further investigation revealed that `show ssh` displays active SSH sessions, while `show ip ssh` confirms the operational status of the SSH service. Verification using `show ip ssh` confirmed successful SSH deployment.
+
+## Lessons Learned
+
+This lab reinforced the relationship between VLAN segmentation, inter-VLAN routing, and secure device management. It also highlighted the importance of selecting appropriate verification commands during troubleshooting.
