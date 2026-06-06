@@ -1,0 +1,203 @@
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname SW1
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree portfast default
+spanning-tree portfast bpduguard default
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+ description Sales-PC
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 0090.21C3.97E2
+ spanning-tree portfast
+!
+interface FastEthernet0/2
+ description HR-PC
+ switchport access vlan 20
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 0030.A32E.4883
+ spanning-tree portfast
+!
+interface FastEthernet0/3
+ description IT-PC
+ switchport access vlan 30
+ switchport mode access
+ switchport port-security
+ switchport port-security mac-address sticky 
+ switchport port-security mac-address sticky 00D0.BA25.B2DD
+ spanning-tree portfast
+!
+interface FastEthernet0/4
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/5
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/6
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/7
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/8
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/9
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/10
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/11
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/12
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/13
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/14
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/15
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/16
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/17
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/18
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/19
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/20
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/21
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/22
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/23
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface FastEthernet0/24
+ description UNUSED
+ switchport access vlan 888
+ switchport mode access
+ shutdown
+!
+interface GigabitEthernet0/1
+ description Trunk-to-R1
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,30,40,999
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan40
+ ip address 192.168.40.2 255.255.255.0
+!
+ip default-gateway 192.168.40.1
+!
+!
+!
+!
+line con 0
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+!
+!
+end
+
