@@ -1,8 +1,5 @@
 # Lab 04 — NAT/PAT with DMZ Architecture
 
-A hands-on Cisco Packet Tracer lab practising network address translation, public-facing server hosting, and DMZ segmentation. Covers static NAT for inbound server access, PAT overload for outbound LAN traffic, and the three-zone security model used in small-to-mid enterprise networks.
-
----
 
 ## Objectives
 
