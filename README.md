@@ -14,7 +14,6 @@ A portfolio of Cisco Packet Tracer labs showcasing practical CCNA networking ski
 - Incident Response and Network Containment
 
 ## Each lab includes:
-- A business scenario
 - Network topology diagrams
 - Configuration details
 - Verification procedures
