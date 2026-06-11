@@ -1,0 +1,120 @@
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname PERIMETER
+!
+!
+!
+!
+ip dhcp excluded-address 192.168.1.1 192.168.1.10
+!
+ip dhcp pool LAN
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.1
+ dns-server 192.168.2.20
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO2911/K9 sn FTX15246512-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description WAN_OUTSIDE
+ ip address 203.0.113.2 255.255.255.248
+ ip access-group ACL-OUTSIDE in
+ ip nat outside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ description DMZ
+ ip address 192.168.2.1 255.255.255.0
+ ip access-group ACL-DMZ in
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ description LAN_TRUSTED
+ ip address 192.168.1.1 255.255.255.0
+ ip access-group ACL-LAN out
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+!
+ip nat inside source list LAN_HOSTS interface GigabitEthernet0/0 overload
+ip nat inside source static 192.168.2.10 203.0.113.3 
+ip nat inside source static 192.168.2.20 203.0.113.4 
+ip classless
+ip route 0.0.0.0 0.0.0.0 203.0.113.1 
+!
+ip flow-export version 9
+!
+!
+ip access-list standard LAN_HOSTS
+ permit 192.168.1.0 0.0.0.255
+ip access-list extended ACL-OUTSIDE
+ permit tcp any host 203.0.113.3 eq www
+ permit tcp any host 203.0.113.3 eq 443
+ permit udp any host 203.0.113.3 eq domain
+ permit udp any host 203.0.113.4 eq domain
+ permit tcp any any established
+ permit icmp any any echo-reply
+ deny ip any any
+ip access-list extended ACL-DMZ
+ permit tcp 192.168.2.0 0.0.0.255 any established
+ permit udp host 192.168.2.20 eq domain any
+ permit udp 192.168.2.0 0.0.0.255 any eq domain
+ permit icmp 192.168.2.0 0.0.0.255 any echo-reply
+ deny ip 192.168.2.0 0.0.0.255 192.168.1.0 0.0.0.255
+ permit ip 192.168.2.0 0.0.0.255 any
+ip access-list extended ACL-LAN
+ permit tcp any 192.168.1.0 0.0.0.255 established
+ permit udp any eq domain 192.168.1.0 0.0.0.255
+ permit icmp any 192.168.1.0 0.0.0.255 echo-reply
+ permit tcp 192.168.2.0 0.0.0.255 192.168.1.0 0.0.0.255 established
+ deny ip any 192.168.1.0 0.0.0.255
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
