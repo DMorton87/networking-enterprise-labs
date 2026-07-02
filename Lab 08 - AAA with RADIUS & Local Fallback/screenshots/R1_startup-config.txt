@@ -1,0 +1,101 @@
+!
+version 16.6.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R1
+!
+!
+!
+!
+!
+!
+!
+aaa new-model
+!
+aaa authentication login default group radius local 
+aaa authentication enable default group radius enable 
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username localadmin privilege 15 secret 5 $1$mERr$jq3yUMOJNtay0XIMFjRss/
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name lab.local
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0/0
+ ip address 10.0.0.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface GigabitEthernet0/0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+radius server host
+ address ipv4 10.0.0.100 auth-port 1645
+ key RADIUSKEY
+radius server 10.0.0.100
+ address ipv4 10.0.0.100 auth-port 1645
+ key RADIUSKEY
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login authentication default
+ transport input ssh
+!
+!
+!
+end
+
