@@ -1,0 +1,110 @@
+!
+version 16.6.4
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R2
+!
+!
+!
+!
+ip dhcp excluded-address 10.2.0.1 10.2.0.9
+!
+ip dhcp pool OFFICE_B
+ network 10.2.0.0 255.255.255.0
+ default-router 10.2.0.1
+ dns-server 8.8.8.8
+ domain-name officeb
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+crypto isakmp policy 10
+ encr aes 256
+ authentication pre-share
+ group 5
+!
+crypto isakmp key VPNKEY123 address 203.0.113.2
+!
+!
+!
+crypto ipsec transform-set VPN_TS esp-aes 256 esp-sha-hmac
+!
+crypto map VPN_MAP 10 ipsec-isakmp 
+ set peer 203.0.113.2
+ set transform-set VPN_TS 
+ match address VPN_TRAFFIC
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 2.2.2.2 255.255.255.255
+!
+interface GigabitEthernet0/0/0
+ ip address 203.0.113.6 255.255.255.252
+ duplex auto
+ speed auto
+ crypto map VPN_MAP
+!
+interface GigabitEthernet0/0/1
+ ip address 10.2.0.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0/2
+ no ip address
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+!
+router ospf 1
+ log-adjacency-changes
+ passive-interface Loopback0
+ network 203.0.113.4 0.0.0.3 area 0
+ network 10.2.0.0 0.0.0.255 area 0
+ network 0.0.0.0 255.255.255.255 area 0
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 203.0.113.5 
+!
+ip flow-export version 9
+!
+!
+ip access-list extended VPN_TRAFFIC
+ permit ip 10.2.0.0 0.0.0.255 10.1.0.0 0.0.0.255
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
